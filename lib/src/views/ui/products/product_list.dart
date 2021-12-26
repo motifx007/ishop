@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ishop/src/business_logic/bloc/cart/cart_bloc.dart';
 import 'package:ishop/src/business_logic/model/product_list.dart';
 import 'package:ishop/src/business_logic/presets/product_list_preset.dart';
+import 'package:ishop/src/views/ui/checkout/checkout.dart';
 import 'package:ishop/src/views/widgets/appbar.dart';
 
 import 'product_details.dart';
@@ -15,6 +18,7 @@ class ProductList extends StatefulWidget {
 class _ProductListState extends State<ProductList> {
   late List<ProductCategory> _productListRespone = <ProductCategory>[];
   late double height, width;
+  late final CartBloc _cartBloc = BlocProvider.of<CartBloc>(context);
 
   @override
   void initState() {
@@ -27,7 +31,22 @@ class _ProductListState extends State<ProductList> {
     height = MediaQuery.of(context).size.width;
     width = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: SimpleAppBar(),
+      appBar: SimpleAppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const CheckOut()),
+              );
+            },
+            icon: Icon(
+              Icons.shopping_cart_outlined,
+              color: Colors.blue,
+            ),
+          )
+        ],
+      ),
       body: _scaffoldBody(),
     );
   }
@@ -88,9 +107,13 @@ class _ProductListState extends State<ProductList> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) =>  ProductDetails(
-                  mainImage: products![index].mainImage!,
-                )),
+                MaterialPageRoute(
+                    builder: (context) => BlocProvider(
+                          create: (context) => _cartBloc,
+                          child: ProductDetails(
+                            products: products![index],
+                          ),
+                        )),
               );
             },
             child: SizedBox(

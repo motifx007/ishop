@@ -12,7 +12,7 @@ List<ProductCategory> getProductList() {
           name: 'iPhone 12',
           price: 65900.00,
           mainImage: 'https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone12-digitalmat-gallery-2-202111?wid=364&hei=333&fmt=png-alpha&.v=1635178709000',
-          stockQuantity: 100,
+          quantity: 0,
           taxPercentage: 7,
         ),
         Products(
@@ -20,7 +20,7 @@ List<ProductCategory> getProductList() {
           name: 'iPhone 13 Pro',
           price: 119900.00,
           mainImage: 'https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone13pro-digitalmat-gallery-3-202111?wid=364&hei=333&fmt=png-alpha&.v=1635487442000',
-          stockQuantity: 100,
+          quantity: 0,
           taxPercentage: 7,
         ),
         Products(
@@ -28,7 +28,7 @@ List<ProductCategory> getProductList() {
           name: 'iPad Pro',
           price: 71900.00,
           mainImage: 'https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/ipad-pro-12-11-select-202104_GEO_IN?wid=545&hei=550&fmt=jpeg&qlt=95&.v=1617864721000',
-          stockQuantity: 100,
+          quantity: 0,
           taxPercentage: 7,
         ),
         Products(
@@ -36,7 +36,7 @@ List<ProductCategory> getProductList() {
           name: 'iPad mini',
           price: 46900.00,
           mainImage: 'https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/ipad-mini-select-202109?wid=540&hei=530&fmt=jpeg&qlt=95&.v=1631751017000',
-          stockQuantity: 100,
+          quantity: 0,
           taxPercentage: 7,
         ),
         Products(
@@ -44,7 +44,7 @@ List<ProductCategory> getProductList() {
           name: 'Apple Watch Series 3',
           price: 20900.00,
           mainImage: 'https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/watch-compare-s3-202009?wid=220&hei=273&fmt=jpeg&qlt=95&.v=1600310839000',
-          stockQuantity: 100,
+          quantity: 0,
           taxPercentage: 7,
         ),
       ],
@@ -60,7 +60,7 @@ List<ProductCategory> getProductList() {
           name: 'AirTag',
           price: 3190.00,
           mainImage: 'https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/airtag-single-select-202104_FV1?wid=445&hei=370&fmt=jpeg&qlt=95&.v=1617761670000',
-          stockQuantity: 100,
+          quantity: 0,
           taxPercentage: 7,
         ),
         Products(
@@ -68,7 +68,7 @@ List<ProductCategory> getProductList() {
           name: 'AirPods',
           price: 18500.00,
           mainImage: 'https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/MME73_AV2?wid=572&hei=572&fmt=jpeg&qlt=95&.v=1632861338000',
-          stockQuantity: 100,
+          quantity: 0,
           taxPercentage: 7,
         ),
         Products(
@@ -76,7 +76,7 @@ List<ProductCategory> getProductList() {
           name: 'iPhone 13 Pro Silicone Case with MagSafe',
           price: 41900.00,
           mainImage: 'https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/MM2D3?wid=572&hei=572&fmt=jpeg&qlt=95&.v=1629923573000',
-          stockQuantity: 100,
+          quantity: 0,
           taxPercentage: 7,
         ),
         Products(
@@ -84,7 +84,7 @@ List<ProductCategory> getProductList() {
           name: '20W USB-C Power Adapter',
           price: 1900.00,
           mainImage: 'https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/MU862?wid=572&hei=572&fmt=jpeg&qlt=95&.v=1591824860000',
-          stockQuantity: 100,
+          quantity: 0,
           taxPercentage: 7,
         ),
         Products(
@@ -92,7 +92,7 @@ List<ProductCategory> getProductList() {
           name: 'AirPods Max',
           price: 59900.00,
           mainImage: 'https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/airpods-max-select-spacegray-202011?wid=470&hei=556&fmt=png-alpha&.v=1604709508000',
-          stockQuantity: 100,
+          quantity: 0,
           taxPercentage: 7,
         ),
       ],
