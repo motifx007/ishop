@@ -17,7 +17,7 @@ class ProductDetails extends StatefulWidget {
 
 class _ProductDetailsState extends State<ProductDetails> {
   late double height, width;
-  late final CartBloc _cartBloc = BlocProvider.of<CartBloc>(context);
+  // late final CartBloc _cartBloc = BlocProvider.of<CartBloc>(context);
 
   @override
   Widget build(BuildContext context) {
@@ -138,10 +138,11 @@ class _ProductDetailsState extends State<ProductDetails> {
   Widget _cartButton() {
     return Padding(
       padding: EdgeInsets.all(16.0),
-      child: BlocProvider(
-        create: (context) => _cartBloc,
-        child: CartButton(products: widget.products,),
-      ),
+      // child: BlocProvider(
+      //   create: (context) => _cartBloc,
+      //   child: CartButton(products: widget.products,),
+      // ),
+      child: CartButton(products: widget.products,),
     );
   }
 }

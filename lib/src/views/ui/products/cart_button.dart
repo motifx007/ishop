@@ -14,6 +14,13 @@ class CartButton extends StatefulWidget {
 
 class _CartButtonState extends State<CartButton> {
   late final CartBloc _cartBloc = BlocProvider.of<CartBloc>(context);
+  List<Products>? _products = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _cartBloc.add(GetCartList());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +33,9 @@ class _CartButtonState extends State<CartButton> {
         width: constraints.maxWidth,
         height: constraints.maxWidth / 8,
         child: BlocBuilder<CartBloc, CartState>(
-          bloc: _cartBloc,
+          // bloc: _cartBloc,
           builder: (context, state) {
-            if (state is AddProductSuccess) {
+            if (state is CartListSuccess) {
               for (Products item in state.products!) {
                 if (item.id == widget.products.id) {
                   return Row(
@@ -36,19 +43,31 @@ class _CartButtonState extends State<CartButton> {
                       Expanded(
                           child: _button(
                         title: '-',
-                        onPressed: () {},
+                        onPressed: () {
+                          final _products = item;
+                          _products.quantity = item.quantity! - 1;
+                          if (_products.quantity == 0) {
+                            _cartBloc.add(DeleteProduct(id: _products.id!));
+                          } else {
+                            _cartBloc.add(UpdateProduct(products: _products));
+                          }
+                        },
                       )),
-                      _cartCount(state: state),
+                      _cartCount2(count: item.quantity!),
                       Expanded(
-                          child: _button(
-                        title: '+',
-                        onPressed: () {},
-                      )),
+                        child: _button(
+                          title: '+',
+                          onPressed: () {
+                            final _products = item;
+                            _products.quantity = item.quantity! + 1;
+                            _cartBloc.add(UpdateProduct(products: _products));
+                          },
+                        ),
+                      ),
                     ],
                   );
                 }
               }
-
               return _button(
                 title: 'ADD TO CART',
                 onPressed: () {
@@ -58,13 +77,24 @@ class _CartButtonState extends State<CartButton> {
                 },
               );
             }
-            return _button(
-              title: 'ADD TO CART',
-              onPressed: () {
-                final _products = widget.products;
-                _products.quantity = 1;
-                _cartBloc.add(AddProduct(products: _products));
-              },
+            if (state is AddProductSuccess) {
+              _cartBloc.add(GetCartList());
+            }
+            if (state is UpdateProductSuccess) {
+              _cartBloc.add(GetCartList());
+            }
+            if (state is DeleteProductSuccess) {
+              return _button(
+                title: 'ADD TO CART',
+                onPressed: () {
+                  final _products = widget.products;
+                  _products.quantity = 1;
+                  _cartBloc.add(AddProduct(products: _products));
+                },
+              );
+            }
+            return SizedBox(
+              height: 0,
             );
           },
         ),
@@ -97,6 +127,16 @@ class _CartButtonState extends State<CartButton> {
       }
     }
 
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 48),
+      child: Text(
+        count.toString(),
+        style: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.grey[800]),
+      ),
+    );
+  }
+
+  Widget _cartCount2({required int count}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 48),
       child: Text(

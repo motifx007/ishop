@@ -27,7 +27,8 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     on<DeleteProduct>((event, emit) {
       for (Products item in products) {
         if (item.id == event.id) {
-          products.removeAt(products.indexOf(item));
+          products.remove(item);
+          break;
         }
       }
       emit(DeleteProductSuccess());

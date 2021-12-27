@@ -18,7 +18,7 @@ class ProductList extends StatefulWidget {
 class _ProductListState extends State<ProductList> {
   late List<ProductCategory> _productListRespone = <ProductCategory>[];
   late double height, width;
-  late final CartBloc _cartBloc = BlocProvider.of<CartBloc>(context);
+  // late final CartBloc _cartBloc = BlocProvider.of<CartBloc>(context);
 
   @override
   void initState() {
@@ -108,12 +108,17 @@ class _ProductListState extends State<ProductList> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => BlocProvider(
-                          create: (context) => _cartBloc,
-                          child: ProductDetails(
-                            products: products![index],
-                          ),
-                        )),
+                  builder: (context) =>
+                      // BlocProvider(
+                      //       create: (context) => _cartBloc,
+                      //       child: ProductDetails(
+                      //         products: products![index],
+                      //       ),
+                      //     ),
+                      ProductDetails(
+                    products: products![index],
+                  ),
+                ),
               );
             },
             child: SizedBox(
