@@ -37,5 +37,10 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     on<GetCartList>((event, emit) {
       emit(CartListSuccess(products: products));
     });
+
+    on<DeleteAllProducts>((event, emit) {
+      products.clear();
+      emit(DeleteAllProductsSuccess());
+    });
   }
 }

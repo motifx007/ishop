@@ -32,3 +32,5 @@ class CartListSuccess extends CartState {
   @override
   List<Object?> get props => [products];
 }
+
+class DeleteAllProductsSuccess extends CartState {}

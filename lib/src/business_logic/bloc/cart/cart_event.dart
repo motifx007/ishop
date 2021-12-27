@@ -29,4 +29,6 @@ class DeleteProduct extends CartEvent {
   List<Object?> get props => [id];
 }
 
+class DeleteAllProducts extends CartEvent {}
+
 class GetCartList extends CartEvent {}

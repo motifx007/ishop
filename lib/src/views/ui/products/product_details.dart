@@ -43,6 +43,7 @@ class _ProductDetailsState extends State<ProductDetails> {
         ],
       ),
       body: _scaffoldBody(),
+      bottomNavigationBar: _cartButton(),
     );
   }
 
@@ -74,7 +75,7 @@ class _ProductDetailsState extends State<ProductDetails> {
           _divider(),
           _productPrice(title: widget.products.price.toString()),
           _tax(percentage: widget.products.taxPercentage.toString()),
-          _cartButton(),
+          // _cartButton(),
         ],
       ),
     );
