@@ -42,6 +42,7 @@ class _SimpleTextFieldState extends State<SimpleTextField> {
       // initialValue: 'Input text',
       decoration: InputDecoration(
         // labelText: widget.labelText,
+        helperText: widget.labelText,
         filled: true,
         fillColor: Colors.grey[250],
         hintText: widget.hintText,

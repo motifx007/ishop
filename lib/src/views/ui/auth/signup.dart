@@ -133,6 +133,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         keyboardType: TextInputType.visiblePassword,
         obscureText: true,
         maxLength: 6,
+        labelText: 'Password can be any 6 characters',
       ),
     );
   }
