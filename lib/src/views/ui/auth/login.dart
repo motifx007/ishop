@@ -1,17 +1,27 @@
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ishop/src/business_logic/bloc/auth/auth_bloc.dart';
+import 'package:ishop/src/business_logic/model/login_request.dart';
+import 'package:ishop/src/business_logic/utils/simple_functions.dart';
 import 'package:ishop/src/views/ui/products/product_list.dart';
 import 'package:ishop/src/views/widgets/widgets.dart';
 
 import 'signup.dart';
 
-class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  _LoginState createState() => _LoginState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  late final AuthBloc _authBloc = BlocProvider.of<AuthBloc>(this.context);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,22 +32,25 @@ class _LoginState extends State<Login> {
   Widget _scaffoldBody() {
     return Center(
       child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _logo(),
-            // _riveView(),
-            const SizedBox(height: 16),
-            _emailField(),
-            const SizedBox(height: 16),
-            _passwordField(),
-            const SizedBox(height: 8),
-            _forgotPasswordButton(),
-            const SizedBox(height: 16),
-            _loginButton(),
-            const SizedBox(height: 16),
-            _signUpButton(),
-          ],
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _logo(),
+              // _riveView(),
+              const SizedBox(height: 16),
+              _emailField(),
+              const SizedBox(height: 16),
+              _passwordField(),
+              // const SizedBox(height: 8),
+              // _forgotPasswordButton(),
+              const SizedBox(height: 56),
+              _loginButton(),
+              const SizedBox(height: 16),
+              _signUpButton(),
+            ],
+          ),
         ),
       ),
     );
@@ -56,21 +69,26 @@ class _LoginState extends State<Login> {
   }
 
   Widget _emailField() {
-    return const Padding(
+    return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: SimpleTextField(
         hintText: 'Email',
+        validator: SimpleFunctions.emailValidator,
+        textEditingController: _emailController,
       ),
     );
   }
 
   Widget _passwordField() {
-    return const Padding(
+    return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: SimpleTextField(
         hintText: 'Password',
+        textEditingController: _passwordController,
+        validator: SimpleFunctions.passWordValidator,
         keyboardType: TextInputType.visiblePassword,
         obscureText: true,
+        maxLength: 6,
       ),
     );
   }
@@ -87,7 +105,7 @@ class _LoginState extends State<Login> {
             },
             child: Text(
               'Forgot Password?',
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(this.context).textTheme.bodyText1,
             ),
           )
         ],
@@ -102,12 +120,36 @@ class _LoginState extends State<Login> {
         child: SizedBox(
           width: constraints.maxWidth,
           height: constraints.maxWidth / 8,
-          child: PositiveButton(
-            title: 'Login',
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ProductList()),
+          child: BlocConsumer<AuthBloc, AuthState>(
+            listener: (context, state) {
+              if (state is LoginSuccess) {
+                CustomSnackBar.positiveSnackBar(context: context, message: 'Login Success',);
+                Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => const ProductList()),
+                    );
+              }
+              if (state is Error) {
+                CustomSnackBar.negativeSnackBar(context: context, message: 'Login Failed',);
+              }
+            },
+            builder: (context, state) {
+              // if (state is LoginSuccess) {
+
+              // }
+              return PositiveButton(
+                title: 'Login',
+                onPressed: () {
+                  _dismissKeyboard();
+                  if (_formKey.currentState!.validate()) {
+                    _authBloc.add(Login(
+                        loginRequest: LoginRequest(
+                      email: _emailController.text,
+                      password: _passwordController.text,
+                    )));
+                    
+                  }
+                },
               );
             },
           ),
@@ -126,14 +168,19 @@ class _LoginState extends State<Login> {
           child: PositiveButton(
             title: 'SignUp',
             onPressed: () {
+              _dismissKeyboard();
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const SignUp()),
+                MaterialPageRoute(builder: (context) => const SignUpScreen()),
               );
             },
           ),
         ),
       );
     });
+  }
+
+  _dismissKeyboard() {
+    FocusScope.of(this.context).unfocus();
   }
 }

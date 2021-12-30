@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+import 'src/business_logic/bloc/auth/auth_bloc.dart';
 import 'src/business_logic/bloc/bloc_observer.dart';
 import 'src/business_logic/bloc/cart/cart_bloc.dart';
 import 'src/views/ui/auth/login.dart';
@@ -20,6 +21,9 @@ void main() async {
         providers: [
           BlocProvider(
             create: (context) => CartBloc(),
+          ),
+          BlocProvider(
+            create: (context) => AuthBloc(),
           ),
         ],
         child: const MyApp(),
@@ -63,7 +67,7 @@ class MyApp extends StatelessWidget {
             bodyText1: TextStyle(fontSize: 12, color: Colors.black, fontWeight: FontWeight.bold),
             bodyText2: TextStyle(fontSize: 10, color: Colors.black),
           )),
-      home: const Login(),
+      home: const LoginScreen(),
     );
   }
 }
